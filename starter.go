@@ -14,6 +14,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	// useless comment
 }
 
 func hello(res http.ResponseWriter, req *http.Request) {
