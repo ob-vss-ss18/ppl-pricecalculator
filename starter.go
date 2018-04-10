@@ -1,5 +1,5 @@
 package main
-
+//Found in https://mmcgrana.github.io/2012/09/getting-started-with-go-on-heroku.html
 import (
 	"fmt"
 	"net/http"
@@ -14,7 +14,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	// useless comment
 }
 
 func hello(res http.ResponseWriter, req *http.Request) {
