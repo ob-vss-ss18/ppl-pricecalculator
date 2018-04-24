@@ -1,7 +1,7 @@
 # Link:
 https://ppl-pricecalculator.herokuapp.com/
 
-
+[![Build (Master) Status](https://travis-ci.org/ob-vss-ss18/ppl-pricecalculator.svg?branch=master)](https://travis-ci.org/ob-vss-ss18/ppl-pricecalculator)
 
 
 # ppl-pricecalculator
