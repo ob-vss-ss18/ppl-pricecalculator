@@ -1,5 +1,7 @@
 # ppl-pricecalculator
 
+Normalverleih auch noch möglich - Soll auch abbildbar sein!
+
 
 in -flatrate
 basierend auf dem Neupreis
