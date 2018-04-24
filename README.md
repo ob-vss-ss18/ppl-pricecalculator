@@ -33,6 +33,12 @@ abschließende Korrektur bei Restwertermittlung gedacht.
 kein Ski für mehr als 149€ bei gebraucht
 kein Ski für mehr als 249€ bei neu
 
+
+Familienrabatt:
+Eltern (1 oder 2) müssen Ski im System haben!
+Rabatt dann immer Pro kind
+
+
 Ablauf:
 Eingabe Nummer 
  > Neupreis wird angegeben
