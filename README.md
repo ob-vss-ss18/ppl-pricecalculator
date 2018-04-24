@@ -1,3 +1,9 @@
+# Link:
+https://ppl-pricecalculator.herokuapp.com/
+
+
+
+
 # ppl-pricecalculator
 
 Normalverleih auch noch möglich - Soll auch abbildbar sein!
@@ -48,9 +54,4 @@ Auswahl (gebraucht - Neu)
  > wegoptimierbar
 Auswahl Saison (bezogen auf den Kunden + Ski)  wenn der Kunde das gleiche nimmt wie im Vorjahr => Saison 2
  > Preis wird angezeigt aufteilung in Ausrüstung und Service
-
-
- 
-
-
 
