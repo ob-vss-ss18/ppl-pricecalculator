@@ -18,11 +18,20 @@ Versicherung geht auf Gesamtwert und zum Preis 30€
 Alles Andere freie Eingabe + Stöcke 
   Alles neu oder gebraucht (Einzelnt)
 
-35€Servie
+ServicePauschale an den Ski gebunden!
+
+Ausstattung preisgruppen (amortisation) -> Faktor
+
+Faktor ist abhängig von Preisgruppe und Produktgruppe:
+36% - 23%
+Wird mit dem Neupreis verrechnet.
 
 Restwertermittlung
 abschließende Korrektur bei Restwertermittlung gedacht.
 
+
+kein Ski für mehr als 149€ bei gebraucht
+kein Ski für mehr als 249€ bei neu
 
 Ablauf:
 Eingabe Nummer 
