@@ -4,6 +4,11 @@ https://ppl-pricecalculator.herokuapp.com/
 [![Build (Master) Status](https://travis-ci.org/ob-vss-ss18/ppl-pricecalculator.svg?branch=master)](https://travis-ci.org/ob-vss-ss18/ppl-pricecalculator)
 
 
+# Link:
+https://ppl-pricecalculator-dev.herokuapp.com/
+
+[![Build (Master) Status](https://travis-ci.org/ob-vss-ss18/ppl-pricecalculator-dev.svg?branch=master)](https://travis-ci.org/ob-vss-ss18/ppl-pricecalculator)
+
 
 Input + Hardcoded -> Output (sodass die Rechnung erstellt werden kann)
 
