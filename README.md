@@ -58,3 +58,6 @@ Auswahl (gebraucht - Neu)
 Auswahl Saison (bezogen auf den Kunden + Ski)  wenn der Kunde das gleiche nimmt wie im Vorjahr => Saison 2
  > Preis wird angezeigt aufteilung in Ausrüstung und Service
 
+
+ 
+ 
