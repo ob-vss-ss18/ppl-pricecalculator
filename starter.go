@@ -29,7 +29,7 @@ func hello(res http.ResponseWriter, req *http.Request) {
 	//feste Werte
 	maxGebraucht := 149.0
 	maxNeu := 249.0
-	testWert := 50.0
+	testWert := 50.0	// Wert von Testen von anderen Skis
 	serviceFlat := 49.0
 	versicherung := 30.0
 
@@ -39,14 +39,14 @@ func hello(res http.ResponseWriter, req *http.Request) {
 	rabattFamilie := 0.10
 	rabattSaison := 0.10
 	gebraucht := false
-	zusatz := 0.0 //stoecke oder so
+	zusatz := 0.0 //stoecke etc.
 
-	zwischenErgebnis := (neuwert * amortisationFactor)
+	zwischenErgebnis := neuwert * amortisationFactor
 
-	if (gebraucht && zwischenErgebnis > maxGebraucht){
+	if gebraucht && zwischenErgebnis > maxGebraucht{
 		zwischenErgebnis = maxGebraucht
 	}
-	if (!gebraucht && zwischenErgebnis > maxNeu){
+	if !gebraucht && zwischenErgebnis > maxNeu{
 		zwischenErgebnis = maxNeu
 	}
 
