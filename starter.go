@@ -34,14 +34,14 @@ func hello(res http.ResponseWriter, req *http.Request) {
 	versicherung := 30.0
 
 	//eingaben
-	preis := 139.0
-	factor := 0.36
+	neuwert := 439.0
+	amortisationFactor := 0.36
 	rabattFamilie := 0.10
 	rabattSaison := 0.10
 	gebraucht := false
 	zusatz := 0.0 //stoecke oder so
 
-	zwischenErgebnis := (preis* factor)
+	zwischenErgebnis := (neuwert * amortisationFactor)
 
 	if (gebraucht && zwischenErgebnis > maxGebraucht){
 		zwischenErgebnis = maxGebraucht
@@ -50,9 +50,9 @@ func hello(res http.ResponseWriter, req *http.Request) {
 		zwischenErgebnis = maxNeu
 	}
 
-	result := zwischenErgebnis + (serviceFlat + versicherung  +
-		 zusatz ) * (1.0-rabattFamilie) * (1.0-rabattSaison)
-	reference := preis + testWert +serviceFlat + versicherung + zusatz
+	result := (zwischenErgebnis + serviceFlat + versicherung +
+		 zusatz) * (1.0 - rabattFamilie) * (1.0 - rabattSaison)
+	reference := neuwert + testWert + serviceFlat + versicherung + zusatz
 
 	fmt.Fprintln(res,"Preis = ",result)
 
