@@ -29,30 +29,30 @@ func hello(res http.ResponseWriter, req *http.Request) {
 	//feste Werte
 	maxGebraucht := 149.0
 	maxNeu := 249.0
-	testWert := 50.0
+	testWert := 50.0	// Wert von Testen von anderen Skis
 	serviceFlat := 49.0
 	versicherung := 30.0
 
 	//eingaben
-	preis := 139.0
-	factor := 0.36
+	neuwert := 439.0
+	amortisationFactor := 0.36
 	rabattFamilie := 0.10
 	rabattSaison := 0.10
 	gebraucht := false
-	zusatz := 0.0 //stoecke oder so
+	zusatz := 0.0 //stoecke etc.
 
-	zwischenErgebnis := (preis* factor)
+	zwischenErgebnis := neuwert * amortisationFactor
 
-	if (gebraucht && zwischenErgebnis > maxGebraucht){
+	if gebraucht && zwischenErgebnis > maxGebraucht{
 		zwischenErgebnis = maxGebraucht
 	}
-	if (!gebraucht && zwischenErgebnis > maxNeu){
+	if !gebraucht && zwischenErgebnis > maxNeu{
 		zwischenErgebnis = maxNeu
 	}
 
-	result := zwischenErgebnis + (serviceFlat + versicherung  +
-		 zusatz ) * (1.0-rabattFamilie) * (1.0-rabattSaison)
-	reference := preis + testWert +serviceFlat + versicherung + zusatz
+	result := (zwischenErgebnis + serviceFlat + versicherung +
+		 zusatz) * (1.0 - rabattFamilie) * (1.0 - rabattSaison)
+	reference := neuwert + testWert + serviceFlat + versicherung + zusatz
 
 	fmt.Fprintln(res,"Preis = ",result)
 
