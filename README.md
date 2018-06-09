@@ -1,65 +1,68 @@
-# Link:
+# Release Branch:
+
 https://ppl-pricecalculator.herokuapp.com/
 
 [![Build (Master) Status](https://travis-ci.org/ob-vss-ss18/ppl-pricecalculator.svg?branch=release)](https://travis-ci.org/ob-vss-ss18/ppl-pricecalculator)
 
 
-# Link:
+# Development Branch:
+
 https://ppl-pricecalculator-dev.herokuapp.com/
 
 [![Build (Master) Status](https://travis-ci.org/ob-vss-ss18/ppl-pricecalculator.svg?branch=master)](https://travis-ci.org/ob-vss-ss18/ppl-pricecalculator)
 
+# GraphQL
 
-Input + Hardcoded -> Output (sodass die Rechnung erstellt werden kann)
+### GrapQL-API
 
+```
+type RootQuery {
+    calculateTotalPrice(items: [Item], family_discount: Int): Int
+}
 
-# ppl-pricecalculator
-Normalverleih auch noch möglich - Soll auch abbildbar sein!
+input Item {
+  id: Int
+  price_new: Float
+  itemType: ItemType
+  condition: Condition
+}
 
+enum Condition {
+  NEW
+  USED
+}
 
-in -flatrate
-basierend auf dem Neupreis
-Bestandsliste - Nummer
-Servicepreis <-> abhängig von der Länge?
-Saison 2 10%, 10%
-Saison 3 20%, 10%
+enum ItemType {
+  SKI
+  STICK
+}
+```
 
-Testwert hebt den Gesamtwert 50€
-Gesamtwert nur als kosmetischer Vergleich
+### Beispiel GraphQL-Abfrage
 
-ServiceFlat geht auf Gesamtwert und zum Preis  49€
+* Programm zum testen: GraphiQL (https://electronjs.org/apps/graphiql)
+* GraphQL Endpoint: http://localhost:8000/graphql
+* Method: GET
 
-Versicherung geht auf Gesamtwert und zum Preis 30€
+**Request:**
+```
+{
+  calculateTotalPrice(
+      items:
+          [
+            {id: 22, price_new: 324.40, itemType: SKI, condition: USED},
+            {id: 24, price_new: 134.43, itemType: STICK, condition: NEW}
+          ],
+      family_discount: 10
+  )
+}
+```
 
-Alles Andere freie Eingabe + Stöcke 
-  Alles neu oder gebraucht (Einzelnt)
-
-ServicePauschale an den Ski gebunden!
-
-Ausstattung preisgruppen (amortisation) -> Faktor
-
-Faktor ist abhängig von Preisgruppe und Produktgruppe:
-36% - 23%
-Wird mit dem Neupreis verrechnet.
-
-Restwertermittlung
-abschließende Korrektur bei Restwertermittlung gedacht.
-
-
-kein Ski für mehr als 149€ bei gebraucht
-kein Ski für mehr als 249€ bei neu
-
-
-Familienrabatt:
-Eltern (1 oder 2) müssen Ski im System haben!
-Rabatt dann immer Pro kind
-
-
-Ablauf:
-Eingabe Nummer 
- > Neupreis wird angegeben
-Auswahl (gebraucht - Neu)
- > wegoptimierbar
-Auswahl Saison (bezogen auf den Kunden + Ski)  wenn der Kunde das gleiche nimmt wie im Vorjahr => Saison 2
- > Preis wird angezeigt aufteilung in Ausrüstung und Service
-
+**Response:**
+```
+{
+  "data": {
+    "calculateTotalPrice": 42
+  }
+}
+```
