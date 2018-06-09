@@ -6,11 +6,29 @@ import (
 )
 
 /*
+	Calculation of the total price.
+ */
+func calculateTotalPrice(familyDiscount int, items []Item) (int, error) {
+
+	totalPrice := 42
+
+	//TODO calculate the total price
+
+	/*
+	println(len(items))
+	println(items[0].ItemType)
+	println(items[0].Id)
+	println(items[0].Condition)
+	println(items[0].PriceNew)
+	*/
+
+	return totalPrice, nil
+}
+
+/*
 	calculation price with static values. Display price in browser.
  */
 func calculateExamplePrice(res http.ResponseWriter, req *http.Request) {
-
-
 
 	fmt.Fprintln(res, "hello, world - DEV")
 	// WERTE abfrage über Item id
@@ -18,7 +36,7 @@ func calculateExamplePrice(res http.ResponseWriter, req *http.Request) {
 	//feste Werte
 	maxGebraucht := 149.0
 	maxNeu := 249.0
-	testWert := 50.0	// Wert von Testen von anderen Skis
+	testWert := 50.0 // Wert von Testen von anderen Skis
 	serviceFlat := 49.0
 	versicherung := 30.0
 
@@ -32,10 +50,10 @@ func calculateExamplePrice(res http.ResponseWriter, req *http.Request) {
 
 	zwischenErgebnis := neuwert * amortisationFactor
 
-	if gebraucht && zwischenErgebnis > maxGebraucht{
+	if gebraucht && zwischenErgebnis > maxGebraucht {
 		zwischenErgebnis = maxGebraucht
 	}
-	if !gebraucht && zwischenErgebnis > maxNeu{
+	if !gebraucht && zwischenErgebnis > maxNeu {
 		zwischenErgebnis = maxNeu
 	}
 
@@ -43,8 +61,8 @@ func calculateExamplePrice(res http.ResponseWriter, req *http.Request) {
 		zusatz) * (1.0 - rabattFamilie) * (1.0 - rabattSaison)
 	reference := neuwert + testWert + serviceFlat + versicherung + zusatz
 
-	fmt.Fprintln(res,"Preis = ",result)
+	fmt.Fprintln(res, "Preis = ", result)
 
-	fmt.Fprintln(res,"Referenz = ", reference)
+	fmt.Fprintln(res, "Referenz = ", reference)
 
 }
