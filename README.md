@@ -15,26 +15,38 @@ https://ppl-pricecalculator-dev.herokuapp.com/
 
 ### GrapQL-API
 
-```
+```graphql
 type RootQuery {
-    calculateTotalPrice(items: [Item], family_discount: Int): Int
+    calculateTotalPrice(items: [Item]): Float
+}
+
+input Calculation {
+  items: [Item]
 }
 
 input Item {
-  id: Int
-  price_new: Float
-  itemType: ItemType
-  condition: Condition
-}
+  family_discount: Int!
+  discout_perc: Float!
+  additional_stuff: Float!
 
-enum Condition {
-  NEW
-  USED
+  # you need id and itemType or
+  # price_new, condition and amortisation_factor
+  id: Int
+  itemType: ItemType
+
+  price_new: Float
+  condition: Condition
+  amortisation_factor: Float
 }
 
 enum ItemType {
   SKI
   STICK
+}
+
+enum Condition {
+  NEW
+  USED
 }
 ```
 
@@ -47,14 +59,10 @@ enum ItemType {
 **Request:**
 ```
 {
-  calculateTotalPrice(
-      items:
-          [
-            {id: 22, price_new: 324.40, itemType: SKI, condition: USED},
-            {id: 24, price_new: 134.43, itemType: STICK, condition: NEW}
-          ],
-      family_discount: 10
-  )
+  calculateTotalPrice(items: [
+    {family_discount: 0.0, dicount_perc: 0.0, additional_stuff: 50.0, id: 22, price_new: 500, itemType: SKI, condition: USED, amortisation_factor: 0.5},
+    {family_discount: 0.0, dicount_perc: 0.0, additional_stuff: 50.0, id: 22, price_new: 500, itemType: SKI, condition: USED, amortisation_factor: 0.5}
+  ])
 }
 ```
 
@@ -62,7 +70,7 @@ enum ItemType {
 ```
 {
   "data": {
-    "calculateTotalPrice": 42
+    "calculateTotalPrice": 398
   }
 }
 ```

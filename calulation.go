@@ -8,19 +8,43 @@ import (
 /*
 	Calculation of the total price.
  */
-func calculateTotalPrice(familyDiscount int, items []Item) (int, error) {
-
-	totalPrice := 42
+func calculateTotalPrice(items []Item) (float64, error) {
 
 	//TODO calculate the total price
 
-	/*
-	println(len(items))
-	println(items[0].ItemType)
-	println(items[0].Id)
-	println(items[0].Condition)
-	println(items[0].PriceNew)
-	*/
+	totalPrice := 0.0
+
+	//feste Werte
+	maxGebraucht := 149.0
+	maxNeu := 249.0
+	//testWert := 50.0 // Wert von Testen von anderen Skis
+	serviceFlat := 0.0 //49.0
+	versicherung := 0.0 //30.0
+
+	for i := range items {
+
+		//eingaben
+		neuwert := items[i].PriceNew
+		amortisationFactor := items[i].Amortisation_factor
+		rabattFamilie := items[i].Family_discount
+		rabattSaison := items[i].Discout_perc
+		gebraucht := items[i].Condition == 1
+		zusatz := items[i].Additional_stuff //stoecke etc.
+
+		zwischenErgebnis := neuwert * amortisationFactor
+
+		if gebraucht && zwischenErgebnis > maxGebraucht {
+			zwischenErgebnis = maxGebraucht
+		}
+		if !gebraucht && zwischenErgebnis > maxNeu {
+			zwischenErgebnis = maxNeu
+		}
+
+		totalPrice += (zwischenErgebnis + serviceFlat + versicherung +
+			zusatz) * (1.0 - rabattFamilie) * (1.0 - rabattSaison)
+		//reference := neuwert + testWert + serviceFlat + versicherung + zusatz
+
+	}
 
 	return totalPrice, nil
 }
