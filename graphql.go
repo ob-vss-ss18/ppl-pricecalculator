@@ -10,10 +10,17 @@ import (
  */
 
 type Item struct {
+	Family_discount float64 `json:"family_discount"`
+	Discout_perc float64 `json:"discout_perc"`
+	Additional_stuff float64 `json:"additional_stuff"`
+
 	Id        int       `json:"id"`
-	PriceNew  float32   `json:"price_new"`
 	ItemType  ItemType  `json:"itemType"`
+
+	PriceNew  float64   `json:"price_new"`
 	Condition Condition `json:"condition"`
+	Amortisation_factor float64 `json:"amortisation_factor"`
+
 }
 
 type Condition int
@@ -47,7 +54,7 @@ func initGraphQl() {
 			"calculateTotalPrice": &graphql.Field{
 
 				//result-type for the response
-				Type: graphql.Int, //return total price
+				Type: graphql.Float, //return total price
 				//Type: graphql.NewList(itemOutput), //result-type for an array of items
 
 				//Configure all input types of a request
@@ -55,16 +62,10 @@ func initGraphQl() {
 					"items": &graphql.ArgumentConfig{
 						Type: graphql.NewList(itemInput),
 					},
-					"family_discount": &graphql.ArgumentConfig{
-						Type: graphql.Int,
-					},
 				},
 
 				//Resolve forwards the input data to the calculation algorithm
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-
-					//get the values from the request
-					familyDiscountQuery, familyDiscountIsOK := p.Args["family_discount"].(int)
 
 					//convert input to []Item{}-Object
 					//not the best solution but works
@@ -73,9 +74,9 @@ func initGraphQl() {
 					items := []Item{}
 					err := json.Unmarshal(jsonItemArray, &items)
 
-					if familyDiscountIsOK && err == nil {
+					if err == nil {
 						//do the calculation it input was correct
-						return calculateTotalPrice(familyDiscountQuery, items)
+						return calculateTotalPrice(items)
 					}
 					return nil, nil
 				},
@@ -122,17 +123,29 @@ var itemInput = graphql.NewInputObject(
 	graphql.InputObjectConfig{
 		Name: "itemInput",
 		Fields: graphql.InputObjectConfigFieldMap{
+			"family_discount": &graphql.InputObjectFieldConfig{
+				Type: graphql.Float,
+			},
+			"dicount_perc": &graphql.InputObjectFieldConfig{
+				Type: graphql.Float,
+			},
+			"additional_stuff": &graphql.InputObjectFieldConfig{
+				Type: graphql.Float,
+			},
 			"id": &graphql.InputObjectFieldConfig{
 				Type: graphql.Int,
-			},
-			"price_new": &graphql.InputObjectFieldConfig{
-				Type: graphql.Float,
 			},
 			"itemType": &graphql.InputObjectFieldConfig{
 				Type: itemTypeEnum,
 			},
+			"price_new": &graphql.InputObjectFieldConfig{
+				Type: graphql.Float,
+			},
 			"condition": &graphql.InputObjectFieldConfig{
 				Type: conditionEnum,
+			},
+			"amortisation_factor": &graphql.InputObjectFieldConfig{
+				Type: graphql.Float,
 			},
 		},
 	},
