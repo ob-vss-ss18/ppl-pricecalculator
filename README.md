@@ -20,10 +20,6 @@ type RootQuery {
     calculateTotalPrice(items: [Item]): Float
 }
 
-input Calculation {
-  items: [Item]
-}
-
 input Item {
   family_discount: Int!
   discout_perc: Float!
