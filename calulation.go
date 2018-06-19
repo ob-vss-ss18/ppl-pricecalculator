@@ -54,7 +54,7 @@ func calculateTotalPrice(items []Item) (float64, error) {
  */
 func calculateExamplePrice(res http.ResponseWriter, req *http.Request) {
 
-	fmt.Fprintln(res, "hello, world - DEV")
+	fmt.Fprintln(res, "hello, world")
 	// WERTE abfrage über Item id
 	//
 	//feste Werte
