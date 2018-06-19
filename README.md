@@ -1,63 +1,72 @@
-# Link:
+# Release Branch:
+
 https://ppl-pricecalculator.herokuapp.com/
+
+[![Build (Master) Status](https://travis-ci.org/ob-vss-ss18/ppl-pricecalculator.svg?branch=release)](https://travis-ci.org/ob-vss-ss18/ppl-pricecalculator)
+
+
+# Development Branch:
+
+https://ppl-pricecalculator-dev.herokuapp.com/
 
 [![Build (Master) Status](https://travis-ci.org/ob-vss-ss18/ppl-pricecalculator.svg?branch=master)](https://travis-ci.org/ob-vss-ss18/ppl-pricecalculator)
 
+# GraphQL
 
+### GrapQL-API
 
-Input + Hardcoded -> Output (sodass die Rechnung erstellt werden kann)
+```graphql
+type RootQuery {
+    calculateTotalPrice(items: [Item]): Float
+}
 
+input Item {
+  family_discount: Int!
+  discout_perc: Float!
+  additional_stuff: Float!
 
-# ppl-pricecalculator
-Normalverleih auch noch möglich - Soll auch abbildbar sein!
+  # you need id and itemType or
+  # price_new, condition and amortisation_factor
+  id: Int
+  itemType: ItemType
 
+  price_new: Float
+  condition: Condition
+  amortisation_factor: Float
+}
 
-in -flatrate
-basierend auf dem Neupreis
-Bestandsliste - Nummer
-Servicepreis <-> abhängig von der Länge?
-Saison 2 10%, 10%
-Saison 3 20%, 10%
+enum ItemType {
+  SKI
+  STICK
+}
 
-Testwert hebt den Gesamtwert 50€
-Gesamtwert nur als kosmetischer Vergleich
+enum Condition {
+  NEW
+  USED
+}
+```
 
-ServiceFlat geht auf Gesamtwert und zum Preis  49€
+### Beispiel GraphQL-Abfrage
 
-Versicherung geht auf Gesamtwert und zum Preis 30€
+* Programm zum testen: GraphiQL (https://electronjs.org/apps/graphiql)
+* GraphQL Endpoint: http://localhost:8000/graphql
+* Method: GET
 
-Alles Andere freie Eingabe + Stöcke 
-  Alles neu oder gebraucht (Einzelnt)
+**Request:**
+```
+{
+  calculateTotalPrice(items: [
+    {family_discount: 0.0, dicount_perc: 0.0, additional_stuff: 50.0, id: 22, price_new: 500, itemType: SKI, condition: USED, amortisation_factor: 0.5},
+    {family_discount: 0.0, dicount_perc: 0.0, additional_stuff: 50.0, id: 22, price_new: 500, itemType: SKI, condition: USED, amortisation_factor: 0.5}
+  ])
+}
+```
 
-ServicePauschale an den Ski gebunden!
-
-Ausstattung preisgruppen (amortisation) -> Faktor
-
-Faktor ist abhängig von Preisgruppe und Produktgruppe:
-36% - 23%
-Wird mit dem Neupreis verrechnet.
-
-Restwertermittlung
-abschließende Korrektur bei Restwertermittlung gedacht.
-
-
-kein Ski für mehr als 149€ bei gebraucht
-kein Ski für mehr als 249€ bei neu
-
-
-Familienrabatt:
-Eltern (1 oder 2) müssen Ski im System haben!
-Rabatt dann immer Pro kind
-
-
-Ablauf:
-Eingabe Nummer 
- > Neupreis wird angegeben
-Auswahl (gebraucht - Neu)
- > wegoptimierbar
-Auswahl Saison (bezogen auf den Kunden + Ski)  wenn der Kunde das gleiche nimmt wie im Vorjahr => Saison 2
- > Preis wird angezeigt aufteilung in Ausrüstung und Service
-
-
- 
- 
+**Response:**
+```
+{
+  "data": {
+    "calculateTotalPrice": 398
+  }
+}
+```
